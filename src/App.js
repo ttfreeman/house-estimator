@@ -1,26 +1,28 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { Subscribe } from "unstated";
+import InputCSV from "./components/InputCSV";
+import Analysis from "./components/Analysis";
+import Header from "./components/Header";
+import Chart1 from "./components/Chart1";
+import { DataContainer } from "./containers/DataContainer";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Subscribe to={[DataContainer]}>
+        {dataStore => (
+          <div>
+            <Header />
+            <div className="container">
+              <div className="row">
+                <InputCSV DataContainer={dataStore} />
+                <Chart1 DataContainer={dataStore} />
+                {/* <Analysis DataContainer={dataStore} /> */}
+              </div>
+            </div>
+          </div>
+        )}
+      </Subscribe>
     );
   }
 }
